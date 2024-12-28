@@ -1,3 +1,7 @@
+using BloggingPlatformAPI.AutoMapper;
+using BloggingPlatformAPI.Models;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +10,17 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
+// Entity Framework
+builder.Services.AddDbContext<BlogContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("BlogConnection")));
+
+// Lazy loading
+builder.Services.AddDbContext<BlogContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("BlogConnection")).UseLazyLoadingProxies());
+
+// automapper
+builder.Services.AddAutoMapper(typeof(MapProfile));
 
 var app = builder.Build();
 
