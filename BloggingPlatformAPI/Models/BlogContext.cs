@@ -6,6 +6,8 @@ namespace BloggingPlatformAPI.Models
     {
         public BlogContext(DbContextOptions<BlogContext> options) : base(options){}
 
+        public DbSet<Blog> Blogs { get; set; }
+        public DbSet<Category> Categories { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             #region BlogCategory
@@ -15,12 +17,6 @@ namespace BloggingPlatformAPI.Models
                 .HasForeignKey(b => b.CategoryId);
             #endregion
 
-            #region BlogsTags
-            modelBuilder.Entity<Blog>()
-                .HasMany(b => b.Tags)
-                .WithMany(t => t.Blogs)
-                .UsingEntity(n => n.ToTable("BlogsTags"));
-            #endregion
         }
     }
 }
