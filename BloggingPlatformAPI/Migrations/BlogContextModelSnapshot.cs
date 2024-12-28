@@ -25,21 +25,6 @@ namespace BloggingPlatformAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("BlogTag", b =>
-                {
-                    b.Property<int>("BlogsBlogId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TagsTagId")
-                        .HasColumnType("int");
-
-                    b.HasKey("BlogsBlogId", "TagsTagId");
-
-                    b.HasIndex("TagsTagId");
-
-                    b.ToTable("BlogsTags", (string)null);
-                });
-
             modelBuilder.Entity("BloggingPlatformAPI.Models.Blog", b =>
                 {
                     b.Property<int>("BlogId")
@@ -57,6 +42,9 @@ namespace BloggingPlatformAPI.Migrations
                     b.Property<DateOnly>("CreatedAt")
                         .HasColumnType("date");
 
+                    b.PrimitiveCollection<string>("Tags")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
@@ -67,7 +55,7 @@ namespace BloggingPlatformAPI.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Blog");
+                    b.ToTable("Blogs");
                 });
 
             modelBuilder.Entity("BloggingPlatformAPI.Models.Category", b =>
@@ -83,38 +71,7 @@ namespace BloggingPlatformAPI.Migrations
 
                     b.HasKey("CategoryId");
 
-                    b.ToTable("Category");
-                });
-
-            modelBuilder.Entity("BloggingPlatformAPI.Models.Tag", b =>
-                {
-                    b.Property<int>("TagId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TagId"));
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("TagId");
-
-                    b.ToTable("Tag");
-                });
-
-            modelBuilder.Entity("BlogTag", b =>
-                {
-                    b.HasOne("BloggingPlatformAPI.Models.Blog", null)
-                        .WithMany()
-                        .HasForeignKey("BlogsBlogId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BloggingPlatformAPI.Models.Tag", null)
-                        .WithMany()
-                        .HasForeignKey("TagsTagId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("BloggingPlatformAPI.Models.Blog", b =>
