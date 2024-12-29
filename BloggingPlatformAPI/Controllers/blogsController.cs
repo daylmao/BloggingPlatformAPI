@@ -66,6 +66,17 @@ namespace BloggingPlatformAPI.Controllers
             var infoDeleted = await _blogService.Delete(id);
             return infoDeleted == null ? NotFound() : Ok(infoDeleted);
         }
+
+        [HttpGet("category")]
+        public ActionResult<IEnumerable<BlogDTO>> FilterByCategory([FromQuery]string category)
+        {
+            var found = _blogService.FilterByCategory(category);
+            if (found == null)
+            {
+                return NotFound();
+            }
+            return Ok(found);
+        }
     }
 }
 

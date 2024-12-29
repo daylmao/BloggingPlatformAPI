@@ -58,15 +58,15 @@ namespace BloggingPlatformAPI.Services
             return _mapProfile.Map<BlogDTO>(newInfo);
         }
 
-        public IEnumerable<BlogDTO> FilterByTag(string filter)
+        public IEnumerable<BlogDTO> FilterByCategory(string filter)
         {
-            var filtered =  _blogRepository.FilterByTag(b => b.Category.Name == filter);
+            var filtered =  _blogRepository.FilterByCategory(filter);
             if (filtered == null || !filtered.Any())
             {
                 Errors.Add("There is no category with that name");
-                return Enumerable.Empty<BlogDTO>();
+                return null;
             }
-            return filtered.Select(b => _mapProfile.Map<BlogDTO>(b)).ToList();
+            return filtered.Select(b => _mapProfile.Map<BlogDTO>(b));
         }
 
         public async Task<BlogDTO> Delete(int Id)
