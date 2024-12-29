@@ -34,8 +34,8 @@ namespace BloggingPlatformAPI.Controllers
             }
             return Ok(found);
         }
-        [HttpPost()]
-        public async Task<ActionResult<CategoryDTO>> CreateCategory([FromBody] CategoryInsertDTO insert)
+        [HttpPost]
+        public async Task<ActionResult> CreateCategory([FromBody] CategoryInsertDTO insert)
         {
             var validated = _insertValidator.Validate(insert);
             if (!validated.IsValid)

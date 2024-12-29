@@ -34,7 +34,13 @@ namespace BloggingPlatformAPI.Repository
             await SaveChangesAsync();
         }
 
-        public IEnumerable<Category> FilterByTag(Func<Category, bool> filter) => _blogContext.Categories.Where(filter);
+        public IEnumerable<Category> FilterByCategory(string categoryName)
+        {
+            return _blogContext.Categories
+                      .Where(c => c.Name == categoryName && c.Blogs.Any())
+                      .ToList();
+        }
+        
 
         public async Task SaveChangesAsync() => await _blogContext.SaveChangesAsync();
 

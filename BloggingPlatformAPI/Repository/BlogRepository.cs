@@ -27,7 +27,10 @@ namespace BloggingPlatformAPI.Repository
             _blogContext.Entry(Update).State = EntityState.Modified;
             await SaveChangesAsync();
         }
-        public IEnumerable<Blog> FilterByTag(Func<Blog, bool> filter) => _blogContext.Blogs.Where(filter).ToList();
+        public IEnumerable<Blog> FilterByCategory(string categoryName)
+        {
+            return _blogContext.Blogs.Where(b => b.Category.Name == categoryName).ToList();
+        }
         public async Task Delete(Blog entity)
         {
             _blogContext.Blogs.Remove(entity);

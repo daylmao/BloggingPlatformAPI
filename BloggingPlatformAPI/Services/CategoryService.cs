@@ -53,9 +53,9 @@ namespace BloggingPlatformAPI.Services
             await _categoryRepository.Update(update);
             return _mapper.Map<CategoryDTO>(update);
         }
-        public IEnumerable<CategoryDTO> FilterByTag(string filter)
+        public IEnumerable<CategoryDTO> FilterByCategory(string filter)
         {
-            var filtered = _categoryRepository.FilterByTag(b => b.Name == filter).ToList();
+            var filtered = _categoryRepository.FilterByCategory(filter);
             if (filtered == null || !filtered.Any())
             {
                 Errors.Add("There is no a category with that name");

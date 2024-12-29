@@ -7,7 +7,7 @@
         Task<T> GetById(int Id);
         Task<T> Insert(TI Insert);
         Task<T> Update(int Id,TU Update);
-        IEnumerable<T> FilterByTag(string filter);
+        IEnumerable<T> FilterByCategory(string filter);
         Task<T> Delete(int id);
     }
 }
