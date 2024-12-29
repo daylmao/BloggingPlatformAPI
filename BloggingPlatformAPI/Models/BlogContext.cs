@@ -17,6 +17,7 @@ namespace BloggingPlatformAPI.Models
                 .HasForeignKey(b => b.CategoryId);
             #endregion
 
+            
         }
     }
 }
