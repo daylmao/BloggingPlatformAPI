@@ -1,7 +1,6 @@
 ﻿using BloggingPlatformAPI.DTOs;
-using BloggingPlatformAPI.Services;
+using BlogginPlatformApi.Core.Application.Interfaces.Services;
 using FluentValidation;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BloggingPlatformAPI.Controllers

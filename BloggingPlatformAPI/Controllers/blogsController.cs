@@ -1,7 +1,6 @@
 ﻿using BloggingPlatformAPI.DTOs;
-using BloggingPlatformAPI.Services;
+using BlogginPlatformApi.Core.Application.Interfaces.Services;
 using FluentValidation;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BloggingPlatformAPI.Controllers
@@ -31,8 +30,8 @@ namespace BloggingPlatformAPI.Controllers
             return found == null ? NotFound() : Ok(found);
         }
 
-        [HttpPost()]
-        public async Task<ActionResult<BlogDTO>> CreateBlogs([FromBody] BlogInsertDTO Insert)
+        [HttpPost]
+        public async Task<ActionResult<BlogDTO>> Create([FromBody] BlogInsertDTO Insert)
         {
             var validation = _insertValidator.Validate(Insert);
             if (!validation.IsValid)
@@ -44,7 +43,7 @@ namespace BloggingPlatformAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<BlogDTO>> UpdateBlog([FromRoute] int id, [FromBody] BlogUpdateDTO update)
+        public async Task<ActionResult<BlogDTO>> Update([FromRoute] int id, [FromBody] BlogUpdateDTO update)
         {
             var found = await _blogService.GetById(id);
             if (found == null)
@@ -61,14 +60,14 @@ namespace BloggingPlatformAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteBlog([FromRoute] int id)
+        public async Task<ActionResult> Delete([FromRoute] int id)
         {
             var infoDeleted = await _blogService.Delete(id);
             return infoDeleted == null ? NotFound() : Ok(infoDeleted);
         }
 
-        [HttpGet("category")]
-        public ActionResult<IEnumerable<BlogDTO>> FilterByCategory([FromQuery]string category)
+        [HttpGet("categories")]
+        public ActionResult<IEnumerable<BlogDTO>> GetByCategory([FromQuery]string category)
         {
             var found = _blogService.FilterByCategory(category);
             if (found == null)
