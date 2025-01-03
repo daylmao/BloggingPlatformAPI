@@ -3,6 +3,7 @@ using BloggingPlatformAPI.DTOs;
 using BloggingPlatformAPI.Services;
 using BloggingPlatformAPI.Validators;
 using BlogginPlatformApi.Core.Application.Interfaces.Services;
+using BlogginPlatformAPI.Core.Application.Interfaces.Services;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -17,8 +18,8 @@ namespace BlogginPlatformAPI.Core.Application
             #endregion
 
             #region services
-            Services.AddScoped<ICRUDService<BlogDTO, BlogInsertDTO, BlogUpdateDTO>, BlogService>();
-            Services.AddScoped<ICRUDService<CategoryDTO, CategoryInsertDTO, CategoryUpdateDTO>, CategoryService>();
+            Services.AddScoped<IBlogCRUDService, BlogService>();
+            Services.AddScoped<ICategoryCRUDService, CategoryService>();
             #endregion
 
             #region validators

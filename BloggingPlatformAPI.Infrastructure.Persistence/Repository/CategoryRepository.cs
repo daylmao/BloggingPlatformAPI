@@ -1,10 +1,11 @@
 ﻿using BloggingPlatformAPI.Infrastructure.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using BloggingPlatformAPI.Entities;
+using BlogginPlatformAPI.Core.Application.Interfaces.Repository;
 
 namespace BloggingPlatformAPI.Repository
 {
-    public class CategoryRepository : IRepository<Category>
+    public class CategoryRepository : ICategoryRepository
     {
         private readonly BlogContext _blogContext;
 
@@ -13,29 +14,29 @@ namespace BloggingPlatformAPI.Repository
             _blogContext = blogContext;
         }
 
-        public async Task<IEnumerable<Category>> GetAll() => await _blogContext.Set<Category>().ToListAsync();
+        public async Task<IEnumerable<Category>> GetAllAsync() => await _blogContext.Set<Category>().ToListAsync();
 
 
-        public async Task<Category> GetById(int Id) => await _blogContext.Categories.FindAsync(Id);
+        public async Task<Category> GetByIdAsync(int Id) => await _blogContext.Categories.FindAsync(Id);
 
-        public async Task Insert(Category Insert)
+        public async Task InsertAsync(Category Insert)
         {
             await _blogContext.Categories.AddAsync(Insert);
             await SaveChangesAsync();
         }
-        public async Task Update(Category Update)
+        public async Task UpdateAsync(Category Update)
         {
             _blogContext.Categories.Attach(Update);
             _blogContext.Entry(Update).State = EntityState.Modified;
             await SaveChangesAsync();
         }
-        public async Task Delete(Category entity)
+        public async Task DeleteAsync(Category entity)
         {
             _blogContext.Categories.Remove(entity);
             await SaveChangesAsync();
         }
 
-        public IEnumerable<Category> FilterByCategory(string categoryName)
+        public IEnumerable<Category> FilterByCategoryAsync(string categoryName)
         {
             return _blogContext.Categories
                       .Where(c => c.Name == categoryName && c.Blogs.Any())

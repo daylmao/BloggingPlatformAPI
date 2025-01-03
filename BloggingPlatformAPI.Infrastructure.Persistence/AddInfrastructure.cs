@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using BloggingPlatformAPI.Repository;
 using BloggingPlatformAPI.Entities;
+using BlogginPlatformAPI.Core.Application.Interfaces.Repository;
 
 namespace BloggingPlatformAPI.Infrastructure.Persistence
 {
@@ -22,8 +23,8 @@ namespace BloggingPlatformAPI.Infrastructure.Persistence
 
 
             #region repository
-            Services.AddTransient<IRepository<Blog>, BlogRepository>();
-            Services.AddTransient<IRepository<Category>, CategoryRepository>();
+            Services.AddTransient<IBlogRepository , BlogRepository>();
+            Services.AddTransient<ICategoryRepository, CategoryRepository>();
             #endregion
         }
     }

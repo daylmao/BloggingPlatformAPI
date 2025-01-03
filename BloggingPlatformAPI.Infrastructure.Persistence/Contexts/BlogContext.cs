@@ -11,6 +11,17 @@ namespace BloggingPlatformAPI.Infrastructure.Persistence.Contexts
         public DbSet<Category> Categories { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            #region Primary Key
+            modelBuilder.Entity<Blog>()
+                .HasKey(b => b.BlogId)
+                .HasName("PKBlog");
+
+            modelBuilder.Entity<Category>()
+                .HasKey(b => b.CategoryId)
+                .HasName("PKCategory");
+            #endregion
+
+
             #region BlogCategory
             modelBuilder.Entity<Blog>()
                 .HasOne(b => b.Category)
